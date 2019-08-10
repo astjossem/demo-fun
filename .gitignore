@@ -1,0 +1,10 @@
+*.log
+node_modules
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
