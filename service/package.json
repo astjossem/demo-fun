@@ -1,0 +1,14 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "description": "backend for demo-project",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "keywords": [
+    "\\"
+  ],
+  "author": "andrew tjossem",
+  "license": "MIT"
+}
