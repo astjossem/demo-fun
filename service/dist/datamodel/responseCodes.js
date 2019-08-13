@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ResponseCodes;
 (function (ResponseCodes) {
     ResponseCodes[ResponseCodes["Ok"] = 200] = "Ok";
+    ResponseCodes[ResponseCodes["NoContent"] = 204] = "NoContent";
     ResponseCodes[ResponseCodes["BadRequest"] = 400] = "BadRequest";
     ResponseCodes[ResponseCodes["Unauthorized"] = 401] = "Unauthorized";
     ResponseCodes[ResponseCodes["Forbidden"] = 403] = "Forbidden";
