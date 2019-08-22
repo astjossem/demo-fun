@@ -5,15 +5,19 @@ import { RegionType } from '../../../datamodel/regionType';
 
 class CensusApiService {
 
-    public async getAllStateCurrentPop(): Promise<IRegion[]> {
+    public async getStatePop(): Promise<IRegion[]> {
         const states: IRegion[] = []
-        const result = await this.getPop(config.baseUri, [config.currentQuery], config.key);
+        const result = (await this.getPop(config.baseUri, [config.currentQuery], config.key))[0];
         const priorPop = await this.getPop(config.baseUri, config.queries, config.key);
-        console.log(result);
-        console.log(priorPop);
         result.map((state: any) => {
             if (state[0] !== 'GEONAME') {
                 const oldPop: number[] = [];
+                for (const year of priorPop) {
+                    const oldState = this.findState(state[2], year);
+                    if (oldState) {
+                        oldPop.push(oldState[0]);
+                    }
+                }
                 states.push({
                     fips: state[2],
                     name: state[0],
@@ -34,7 +38,7 @@ class CensusApiService {
         return pop;
     }
 
-    public findState(fips: number, popArray: []): number {
+    public findState(fips: number, popArray: []): any[] {
         return popArray.find((ele: any) => {
             return ele[1] === fips;
         });

@@ -18,7 +18,7 @@ app.post( "/messages", (req, res) => {
 
 app.get('/states', async (req, res) => {
     try {
-        const data = (await censusApiService.getAllStateCurrentPop());
+        const data = (await censusApiService.getStatePop());
         if (data) {
             res.status(ResponseCodes.Ok).json(data);
         } else {

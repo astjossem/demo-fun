@@ -27,7 +27,7 @@ app.post("/messages", (req, res) => {
 });
 app.get('/states', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const data = (yield censusApi_1.censusApiService.getAllStateCurrentPop());
+        const data = (yield censusApi_1.censusApiService.getStatePop());
         if (data) {
             res.status(responseCodes_1.ResponseCodes.Ok).json(data);
         }

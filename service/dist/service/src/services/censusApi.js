@@ -22,16 +22,20 @@ const rp = __importStar(require("request-promise-native"));
 const config_json_1 = __importDefault(require("../../../config.json"));
 const regionType_1 = require("../../../datamodel/regionType");
 class CensusApiService {
-    getAllStateCurrentPop() {
+    getStatePop() {
         return __awaiter(this, void 0, void 0, function* () {
             const states = [];
-            const result = yield this.getPop(config_json_1.default.baseUri, [config_json_1.default.currentQuery], config_json_1.default.key);
+            const result = (yield this.getPop(config_json_1.default.baseUri, [config_json_1.default.currentQuery], config_json_1.default.key))[0];
             const priorPop = yield this.getPop(config_json_1.default.baseUri, config_json_1.default.queries, config_json_1.default.key);
-            console.log(result);
-            console.log(priorPop);
             result.map((state) => {
                 if (state[0] !== 'GEONAME') {
                     const oldPop = [];
+                    for (const year of priorPop) {
+                        const oldState = this.findState(state[2], year);
+                        if (oldState) {
+                            oldPop.push(oldState[0]);
+                        }
+                    }
                     states.push({
                         fips: state[2],
                         name: state[0],
