@@ -14,20 +14,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const responseCodes_1 = require("../../datamodel/responseCodes");
 const cors_1 = __importDefault(require("cors"));
-const censusApi_1 = require("./services/censusApi");
+const db_1 = require("./db/db");
 const app = express_1.default();
 app.use(cors_1.default());
 const port = 8000; // default port to listen
-app.get("/messages", (req, res) => {
-    res.status(responseCodes_1.ResponseCodes.Ok).json('Hello world!');
-});
-app.post("/messages", (req, res) => {
-    const message = req.body;
-    res.status(responseCodes_1.ResponseCodes.Ok).json('Roger!');
-});
+db_1.mongoDataBase.initialize();
 app.get('/states', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const data = (yield censusApi_1.censusApiService.getStatePop());
+        const data = yield db_1.mongoDataBase.getAllStates();
         if (data) {
             res.status(responseCodes_1.ResponseCodes.Ok).json(data);
         }
