@@ -16,7 +16,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const MongoClient = __importStar(require("mongodb"));
-const censusApi_1 = require("../services/censusApi");
+const censusApi_service_1 = require("../services/censusApi.service");
 class MongoDataBase {
     constructor() {
         //Set up default mongoose connection
@@ -36,7 +36,7 @@ class MongoDataBase {
                 const db = yield client.db('db');
                 const created = yield this.createCollection(db, 'States');
                 if (created) {
-                    const states = yield censusApi_1.censusApiService.getStatePop();
+                    const states = yield censusApi_service_1.censusApiService.getStatePop();
                     yield db.collection('States').insertMany(states);
                 }
             }));
@@ -45,10 +45,9 @@ class MongoDataBase {
     getAllStates() {
         return __awaiter(this, void 0, void 0, function* () {
             let result = [];
-            yield MongoClient.connect(this.url, this.options, (err, client) => __awaiter(this, void 0, void 0, function* () {
-                const db = client.db('db');
-                result = yield db.collection('States').find().toArray();
-            }));
+            const client = yield MongoClient.connect(this.url, this.options);
+            const db = client.db('db');
+            result = yield db.collection('States').find({}, { projection: { '_id': 0 } }).toArray();
             return result;
         });
     }

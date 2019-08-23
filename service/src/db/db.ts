@@ -1,5 +1,5 @@
 import * as MongoClient from 'mongodb';
-import { censusApiService } from '../services/censusApi';
+import { censusApiService } from '../services/censusApi.service';
 import { IRegion } from '../../../datamodel/IRegion';
 import { fips } from 'crypto';
 
@@ -26,13 +26,16 @@ class MongoDataBase {
         });
     }
 
-    public async getAllStates(): Promise<IRegion[]> {
-        let result: IRegion[] = [];
-        await MongoClient.connect(this.url, this.options, async (err, client) => {
-            const db = client.db('db');
-            result = await db.collection('States').find().toArray();
-        });
+    public async getAllStates(): Promise<any> {
+        let result: any = [];
+        const client = await MongoClient.connect(this.url, this.options);
+        const db = client.db('db');
+        result = await db.collection('States').find({}, { projection: {'_id': 0 } }).toArray();
         return result;
+    }
+
+    public async addElectionData(): Promise<void> {
+        
     }
 
     private async createCollection(db: MongoClient.Db, name: string): Promise<boolean> {
