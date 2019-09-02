@@ -21,6 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rp = __importStar(require("request-promise-native"));
 const config_json_1 = __importDefault(require("../../../config.json"));
 const regionType_1 = require("../../../datamodel/regionType");
+const electionData_service_1 = require("./electionData.service");
 class CensusApiService {
     getStatePop() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -28,7 +29,8 @@ class CensusApiService {
             const result = (yield this.getPop(config_json_1.default.baseUri, [config_json_1.default.currentQuery], config_json_1.default.key))[0];
             const priorPop = yield this.getPop(config_json_1.default.baseUri, config_json_1.default.queries, config_json_1.default.key);
             result.map((state) => {
-                if (state[0] !== 'GEONAME') {
+                if (state[0] !== 'GEONAME' && state[2] !== '72') {
+                    const election = electionData_service_1.electionDataService.stateResults(state[0]);
                     const oldPop = [];
                     for (const year of priorPop) {
                         const oldState = this.findState(state[2], year);
@@ -41,7 +43,8 @@ class CensusApiService {
                         name: state[0],
                         type: regionType_1.RegionType.state,
                         popCurrent: state[1],
-                        oldPop
+                        oldPop,
+                        election
                     });
                 }
             });

@@ -11,8 +11,8 @@ class CensusApiService {
         const result = (await this.getPop(config.baseUri, [config.currentQuery], config.key))[0];
         const priorPop = await this.getPop(config.baseUri, config.queries, config.key);
         result.map((state: any) => {
-            if (state[0] !== 'GEONAME') {
-                const election = electionDataService.stateResults(state.name);
+            if (state[0] !== 'GEONAME' && state[2] !== '72') {
+                const election = electionDataService.stateResults(state[0]);
                 const oldPop: number[] = [];
                 for (const year of priorPop) {
                     const oldState = this.findState(state[2], year);

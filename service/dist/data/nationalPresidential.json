@@ -1,0 +1,20 @@
+[
+    {
+        "year": 2008,
+        "party": "democrat",
+        "winner": "Barack Obama",
+        "spread": 7.2
+    },
+    {
+        "year": 2012,
+        "party": "democrat",
+        "winner": "Barack Obama",
+        "spread": 3.9
+    },
+    {
+        "year": 2016,
+        "party": "republican",
+        "winner": "Donald Trump",
+        "spread": -2.1
+    }
+]

@@ -34,10 +34,6 @@ class MongoDataBase {
         return result;
     }
 
-    public async addElectionData(): Promise<void> {
-        
-    }
-
     private async createCollection(db: MongoClient.Db, name: string): Promise<boolean> {
         const collection = await db.listCollections( (col: MongoClient.Collection) => {
             col.collectionName === name;
