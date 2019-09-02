@@ -1,5 +1,5 @@
 import express from 'express';
-import { ResponseCodes } from '../../datamodel/responseCodes';
+import { ResponseCodes } from '../../mounts/datamodel/responseCodes';
 import cors from 'cors';
 import { mongoDataBase } from './db/db';
 

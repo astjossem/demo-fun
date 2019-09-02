@@ -1,7 +1,7 @@
 import * as rp from 'request-promise-native';
-import config from '../../../config.json';
-import { IRegion } from '../../../datamodel/IRegion';
-import { RegionType } from '../../../datamodel/regionType';
+import config from '../../../mounts/config.json';
+import { IRegion } from '../../../mounts/datamodel/IRegion';
+import { RegionType } from '../../../mounts/datamodel/regionType';
 import { electionDataService } from './electionData.service';
 
 class CensusApiService {

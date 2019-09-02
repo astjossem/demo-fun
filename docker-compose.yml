@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+    ui:
+        image: astjossem/demo-ui
+        ports:
+            - "4200:4200"
+        networks:
+            - web-app
+        volumes:
+            - ./mounts/config.json:/mounts/config.json
+            - ./mounts/data:/mounts/data
+            - ./mounts/datamodel:/mounts/datamodel
+    service:
+        image: astjossem/demo-service
+        ports:
+            - "8000:8000"
+        networks:
+            - web-app
+        volumes:
+            - ./mounts/config.json:../mounts/config.json
+            - ./mounts/data:../mounts/data
+            - ./mounts/datamodel:../mounts/datamodel
+    db:
+        image: mongo:3.4-xenial
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+        networks: 
+            - web-app
+
+networks:
+    web-app:

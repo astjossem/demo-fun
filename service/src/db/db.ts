@@ -1,7 +1,5 @@
 import * as MongoClient from 'mongodb';
 import { censusApiService } from '../services/censusApi.service';
-import { IRegion } from '../../../datamodel/IRegion';
-import { fips } from 'crypto';
 
 class MongoDataBase {
     //Set up default mongoose connection

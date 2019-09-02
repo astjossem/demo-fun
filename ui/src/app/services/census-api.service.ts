@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IRegion } from '../../../../datamodel/IRegion';
+import { IRegion } from '../../../../mounts/datamodel/IRegion';
 
 const server = 'http://localhost:8000';
 
