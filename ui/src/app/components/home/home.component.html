@@ -5,6 +5,11 @@
         <td mat-cell *matCellDef='let state'>{{addCommas(state.name)}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="politicalLean">
+        <th mat-header-cell *matHeaderCellDef>Political Lean</th>
+        <td mat-cell *matCellDef='let state'>{{lean(state)}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="current">
         <th mat-header-cell *matHeaderCellDef >Current Pop</th>
         <td mat-cell *matCellDef='let state'>{{addCommas(state.popCurrent)}}{{growth(state.popCurrent, state.oldPop[0])}}</td>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CensusApiService } from '../../services/census-api.service';
 import { IRegion } from '../../../../../datamodel/IRegion';
 import { MatTableDataSource } from '@angular/material';
+import national from '../../../../../data/nationalPresidential.json';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class HomeComponent implements OnInit {
   public states: IRegion[];
-  public displayedColumns = ['name', 'current', 'ten', 'zero', 'ninety'];
+  public displayedColumns = ['name', 'politicalLean', 'current', 'ten', 'zero', 'ninety'];
   public dataSource: MatTableDataSource<IRegion>;
 
   constructor(private readonly censusApiService: CensusApiService) { }
@@ -35,6 +36,13 @@ export class HomeComponent implements OnInit {
   public growth(current: number, old: number): string {
     const percentage = Math.trunc(current * 1000 / old - 1000) / 10;
     return `  (${percentage.toString()}%)`;
+  }
+
+  public lean(state: IRegion): string {
+    const past = state.election[2] - national[0].spread;
+    const prior = state.election[1] - national[1].spread;
+    const current = state.election[0] - national[2].spread;
+    return (past * .15 + prior * .35 + current * .5).toFixed(1);
   }
 
 }
