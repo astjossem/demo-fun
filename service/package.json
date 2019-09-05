@@ -2,7 +2,7 @@
   "name": "service",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/service/src/server.js",
+  "main": "./dist/service/src/server.js",
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsc",
@@ -16,6 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "@angular/common": "^8.2.1",
+    "@angular/core": "^8.2.4",
+    "eslint": "6.1.0",
     "@types/cors": "^2.8.5",
     "@types/express": "^4.17.0",
     "@types/mongodb": "^3.3.0",

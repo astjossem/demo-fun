@@ -2,7 +2,8 @@ FROM node:10.16
 
 WORKDIR /app/service
 ENV PATH /app/service/node_modules/.bin:$PATH
-COPY package.json /app/service/package.json
+COPY service/package.json /app/service/package.json
+COPY mounts/* app/mounts/
 RUN npm i 
-COPY . /app/service
+COPY /service/* ./
 CMD npm start

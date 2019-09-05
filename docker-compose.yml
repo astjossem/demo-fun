@@ -1,25 +1,21 @@
 version: "3.7"
 services:
-    ui:
-        image: astjossem/demo-ui
-        ports:
-            - "4200:4200"
-        networks:
-            - web-app
-        volumes:
-            - ./mounts/config.json:/mounts/config.json
-            - ./mounts/data:/mounts/data
-            - ./mounts/datamodel:/mounts/datamodel
     service:
-        image: astjossem/demo-service
+        build:
+            context: .
+            dockerfile: ./service/Dockerfile
         ports:
             - "8000:8000"
         networks:
             - web-app
-        volumes:
-            - ./mounts/config.json:../mounts/config.json
-            - ./mounts/data:../mounts/data
-            - ./mounts/datamodel:../mounts/datamodel
+    ui:
+        build:
+            context: .
+            dockerfile: ./ui/Dockerfile
+        ports:
+            - "4200:4200"
+        networks:
+            - web-app
     db:
         image: mongo:3.4-xenial
         restart: always

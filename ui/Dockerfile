@@ -2,7 +2,8 @@ FROM node:10.16
 
 WORKDIR /app/ui
 ENV PATH /app/ui/node_modules/.bin:$PATH
-COPY package.json /app/ui/package.json
+COPY ui/package.json /app/ui/package.json
+COPY mounts/* app/mounts/
 RUN npm i 
-COPY . /app/ui
+COPY /ui/* ./
 CMD npm start
